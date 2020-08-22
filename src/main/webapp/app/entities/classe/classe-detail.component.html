@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="classe">
+            <h2><span jhiTranslate="appApp.classe.detail.title">Classe</span> {{ classe.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="appApp.classe.name">Name</span></dt>
+                <dd>
+                    <span>{{ classe.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="appApp.classe.teacher">Teacher</span></dt>
+                <dd>
+                    {{ classe.teacher?.login }}
+                </dd>
+                <dt><span jhiTranslate="appApp.classe.studentArea">Student Area</span></dt>
+                <dd>
+                    {{ classe.studentArea?.login }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/classe', classe.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
