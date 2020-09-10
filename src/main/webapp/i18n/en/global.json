@@ -8,6 +8,8 @@
       "entities": {
         "main": "Entities",
         "classe": "Classe",
+        "document": "Document",
+        "file": "File",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

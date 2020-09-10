@@ -1,0 +1,11 @@
+{
+  "appApp": {
+    "TypeDocument": {
+      "null": "",
+      "COURSE": "COURSE",
+      "TD": "TD",
+      "TP": "TP",
+      "EXAM": "EXAM"
+    }
+  }
+}

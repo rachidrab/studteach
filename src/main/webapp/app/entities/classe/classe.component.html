@@ -31,15 +31,15 @@
             </thead>
             <tbody>
                 <tr *ngFor="let classe of classes ;trackBy: trackId">
-                    <td *ngIf="classe.teacher?.login == account?.login"><a [routerLink]="['/classe', classe.id, 'view']">{{ classe.id }}</a></td>
-                    <td *ngIf="classe.teacher?.login === account?.login">{{ classe.name }}</td>
-                    <td *ngIf="classe.teacher?.login === account?.login">
+                    <td><a [routerLink]="['/classe', classe.id, 'view']">{{ classe.id }}</a></td>
+                    <td>{{ classe.name }}</td>
+                    <td>
                         {{ classe.teacher?.login }}
                     </td>
-                    <td *ngIf="classe.teacher?.login === account?.login">
+                    <td>
                         {{ classe.studentArea?.login }}
                     </td>
-                    <td *ngIf="classe.teacher?.login === account?.login" class="text-right">
+                    <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
                                     [routerLink]="['/classe', classe.id, 'view']"

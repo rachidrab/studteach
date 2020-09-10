@@ -7,8 +7,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IClasse } from 'app/shared/model/classe.model';
 import { ClasseService } from './classe.service';
 import { ClasseDeleteDialogComponent } from './classe-delete-dialog.component';
-import {Account} from "app/core/user/account.model";
-import {AccountService} from "app/core/auth/account.service";
 
 @Component({
   selector: 'jhi-classe',
@@ -18,20 +16,15 @@ export class ClasseComponent implements OnInit, OnDestroy {
   classes?: IClasse[];
   eventSubscriber?: Subscription;
 
-  account: Account | null = null;
-  authSubscription?: Subscription;
-
-  constructor(private accountService: AccountService, protected classeService: ClasseService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
+  constructor(protected classeService: ClasseService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.classeService.query().subscribe((res: HttpResponse<IClasse[]>) => (this.classes = res.body || []));
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
     this.loadAll();
     this.registerChangeInClasses();
-
   }
 
   ngOnDestroy(): void {

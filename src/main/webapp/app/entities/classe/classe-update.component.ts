@@ -3,14 +3,12 @@ import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { IClasse, Classe } from 'app/shared/model/classe.model';
 import { ClasseService } from './classe.service';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
-import {Account} from "app/core/user/account.model";
-import {AccountService} from "app/core/auth/account.service";
 
 @Component({
   selector: 'jhi-classe-update',
@@ -27,11 +25,7 @@ export class ClasseUpdateComponent implements OnInit {
     studentArea: []
   });
 
-  account: Account | null = null;
-  authSubscription?: Subscription;
-
   constructor(
-    private accountService: AccountService,
     protected classeService: ClasseService,
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
@@ -39,8 +33,6 @@ export class ClasseUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-
     this.activatedRoute.data.subscribe(({ classe }) => {
       this.updateForm(classe);
 
@@ -52,6 +44,7 @@ export class ClasseUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: classe.id,
       name: classe.name,
+      teacher: classe.teacher,
       studentArea: classe.studentArea
     });
   }
@@ -63,9 +56,6 @@ export class ClasseUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const classe = this.createFromForm();
-    if (this.account != null){
-      classe.teacher = this.account;
-    }
     if (classe.id !== undefined) {
       this.subscribeToSaveResponse(this.classeService.update(classe));
     } else {

@@ -24,6 +24,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="appApp.classe.teacher" for="field_teacher">Teacher</label>
+                    <select class="form-control" id="field_teacher" name="teacher" formControlName="teacher">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('teacher')!.value?.id ? editForm.get('teacher')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.login }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="appApp.classe.studentArea" for="field_studentArea">Student Area</label>
                     <select class="form-control" id="field_studentArea" name="studentArea" formControlName="studentArea">
                         <option [ngValue]="null"></option>

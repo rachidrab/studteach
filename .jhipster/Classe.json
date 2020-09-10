@@ -18,6 +18,12 @@
             "ownerSide": true,
             "useJPADerivedIdentifier": false,
             "otherEntityRelationshipName": "classe"
+        },
+        {
+            "relationshipName": "file",
+            "otherEntityName": "file",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "classe"
         }
     ],
     "fields": [

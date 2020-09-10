@@ -1,0 +1,107 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-document-heading" jhiTranslate="appApp.document.home.createOrEditLabel">Create or edit a Document</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="appApp.document.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="appApp.document.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" formControlName="type" id="field_type">
+                        <option value="COURSE">{{ 'appApp.TypeDocument.COURSE' | translate }}</option>
+                        <option value="TD">{{ 'appApp.TypeDocument.TD' | translate }}</option>
+                        <option value="TP">{{ 'appApp.TypeDocument.TP' | translate }}</option>
+                        <option value="EXAM">{{ 'appApp.TypeDocument.EXAM' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="appApp.document.classe" for="field_classe">Classe</label>
+                    <select class="form-control" id="field_classe" name="classe" formControlName="classe">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="classeOption.id === editForm.get('classe')!.value?.id ? editForm.get('classe')!.value : classeOption" *ngFor="let classeOption of classes; trackBy: trackById">{{ classeOption.name }}</option>
+                    </select>
+                </div>
+
+                <div >
+                    <input #fileInput type="file" ng2FileSelect [uploader]="uploader"/>
+
+                    <div class="drop-box" ng2FileDrop
+                         [ngClass]="{'dragover': isDropOver}"
+                         [uploader]="uploader"
+                         (fileOver)="fileOverAnother($event)"
+                         (click)="fileClicked()">
+                        <span class="drag-in-title">Import or drag file here</span>
+                        <span class="drag-over-title">Drop the file</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    .drop-box {
+        cursor: pointer;
+        background: #F8F8F8;
+        border: 5px dashed #DDD;
+        text-align: center;
+        padding: 40px;
+    }
+
+    .drag-over-title {
+        display: none;
+    }
+
+    .drop-box.dragover {
+        opacity: 0.6;
+    }
+
+    .drop-box.dragover .drag-over-title {
+        display: block;
+    }
+
+    .drop-box.dragover .drag-in-title {
+        display: none;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+
+</style>

@@ -7,6 +7,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Classe.
@@ -32,6 +34,9 @@ public class Classe implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private User studentArea;
+
+    @OneToMany(mappedBy = "classe")
+    private Set<File> files = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -79,6 +84,31 @@ public class Classe implements Serializable {
 
     public void setStudentArea(User user) {
         this.studentArea = user;
+    }
+
+    public Set<File> getFiles() {
+        return files;
+    }
+
+    public Classe files(Set<File> files) {
+        this.files = files;
+        return this;
+    }
+
+    public Classe addFile(File file) {
+        this.files.add(file);
+        file.setClasse(this);
+        return this;
+    }
+
+    public Classe removeFile(File file) {
+        this.files.remove(file);
+        file.setClasse(null);
+        return this;
+    }
+
+    public void setFiles(Set<File> files) {
+        this.files = files;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

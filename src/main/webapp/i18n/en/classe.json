@@ -18,7 +18,8 @@
       },
       "name": "Name",
       "teacher": "Teacher",
-      "studentArea": "Student Area"
+      "studentArea": "Student Area",
+      "file": "File"
     }
   }
 }
